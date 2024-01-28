@@ -11,6 +11,8 @@ Generally, brute-forcing is not an effective method of penetration. However, in 
 
 In these cases, brute-forcing becomes a realistic approach to gaining access to the system, especially if the system lacks additional protections like rate limits.
 
+<!-- more -->
+
 I personally encountered a common situation where cheap hotel WiFi routers perform poorly, even with a limited number of connected clients. This is typically due to their low-quality software, which is not designed to operate for extended periods without rebooting and continuously registering numerous clients. In my experience, simply rebooting the router resolves the issue.
 
 Usually, passwords on router admin pages are set to default values like "admin/admin" or common standard passwords. In many cases, the admin password is the same as the WiFi hotspot password, while in others, it might be "admin1," "password," "1111," or other frequently used combinations. Although guessing them manually may not be easy, even small password lists usually contain these common combinations.

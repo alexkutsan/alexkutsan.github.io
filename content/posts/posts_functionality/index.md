@@ -12,7 +12,7 @@ tags = ["zola"]
 I am using Zola as a static site generator with the Inky theme. It provides an easy way to create posts in Markdown, requiring minimal configuration. Despite its simplicity, it is feature-rich and has no JavaScript/npm dependencies.
 
 In this post, I am exploring various useful abilities of Markdown/HTML that can enhance blog posts.
-
+<!-- more -->
 <details>
     <summary>For example, hiding part of the content in a collapsible block:</summary>
     In the collapsed part, I can include extensive text without cluttering the page. This can be achieved using the following syntax:
