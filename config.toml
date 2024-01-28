@@ -1,0 +1,58 @@
+title = "Alexander Kutsan"
+description = "Software engeneer"
+
+# The URL the site will be built for
+base_url = "http://localhost:8000"
+
+# Whether to automatically compile all Sass files in the sass directory
+compile_sass = true
+default_language = "en"
+#theme = "d3c3nt"
+theme = "zola-inky"
+
+output_dir = "public"
+
+# Whether to build a search index to be used later on by a JavaScript library
+build_search_index = true
+
+generate_feed = true
+feed_filename = "atom.xml"
+
+taxonomies = [{ name = "tags", lang = "en", rss = true }]
+
+[markdown]
+highlight_code = true
+
+[slugify]
+paths = "on"
+taxonomies = "on"
+anchors = "on"
+
+[search]
+include_title = true
+include_description = true
+include_path = true
+include_content = true
+truncate_content_length = 100
+
+[extra]
+
+avatar = "/avatar.jpg"
+image_resizing_disabled = false
+image_format = "auto"
+image_quality = 80
+images_default_size = 512
+images_sizes = [64, 512, 1024, 2048]
+
+keywords = "zola, theme, ink, hugo-ink"
+
+link_github_username = "alexkutsan"
+
+menu_links = [
+    { url = "$BASE_URL/", name = "About" },
+    { url = "$BASE_URL/posts/", name = "Posts" },
+    { url = "$BASE_URL/tags/", name = "Tags" },
+    { url = "https://photo.alexkutsan.me/", name = "Photos" },
+    { url = "$BASE_URL/search/", name = "Search" },
+]
+
