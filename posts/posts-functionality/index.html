@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en" prefix="og: https://ogp.me/ns#">
+<head>
+<meta charset="UTF-8" />
+<meta http-equiv="X-UA-Compatible"
+      content="IE=edge">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0" />
+<meta name="description"
+      content="Software engeneer" />
+<meta name="keywords"
+      content="zola, theme, ink, hugo-ink" /> 
+
+<title>Alexander Kutsan | Blog Posts Functionality</title>
+<meta
+  property="og:title"
+  content="Alexander Kutsan | Blog Posts Functionality"
+/>
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://alexkutsan.github.io/posts/posts-functionality/" />
+<meta property="og:description" content="Exploire blog posting functionality" />
+<meta property="og:image" content="" />
+<meta property="og:image:url" content="" />
+<meta property="og:image:secure_url" content="" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Blog Posts Functionality" />
+<meta name="twitter:description" content="Exploire blog posting functionality" />
+<meta property="twitter:image" content="" />
+
+<link rel="alternate"
+          type="application/rss+xml"
+          title="Alexander Kutsan"
+          href="https://alexkutsan.github.io/atom.xml">
+    <link rel="preconnect"
+          href="https://fonts.googleapis.com">
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin>
+    <!-- <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">  -->
+    <link href="https://fonts.googleapis.com/css2?family=Andada+Pro&display=swap&family=Playfair+Display"
+          rel="stylesheet">
+    <link rel="stylesheet"
+          href="https://alexkutsan.github.io/base.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.28.0/feather.min.js"
+            integrity="sha512-7x3zila4t2qNycrtZ31HO0NnJr8kg2VI67YLoRSyi9hGhRN66FHYWr7Axa9Y1J9tGYHVBPqIjSE1ogHrJTz51g=="
+            crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <header>
+        <div class="avatar">
+			<a href="/">
+                <img alt="Alexander Kutsan" title="Alexander Kutsan" src="https://alexkutsan.github.io/processed_images/avatar.9ecf448463fb0d41.jpg" srcset="https://alexkutsan.github.io/processed_images/avatar.078cb1ab591eee34.jpg 64w, https://alexkutsan.github.io/processed_images/avatar.9ecf448463fb0d41.jpg 128w, https://alexkutsan.github.io/processed_images/avatar.d3efc11b3c52ef68.jpg 256w" class="" />
+
+			</a>
+		</div>
+	    <a class="site-name"
+           href="/">
+            <h1>Alexander Kutsan</h1>
+        </a>
+        <div class="site-description">
+            <p>Software engeneer</p>
+        </div>
+        <nav>
+            <div class="links"> 
+            <a 
+                href="https://alexkutsan.github.io/ ">About</a> 
+            <a 
+                href="https://alexkutsan.github.io/posts/ ">Posts</a> 
+            <a 
+                href="https://alexkutsan.github.io/tags/ ">Tags</a> 
+            <a 
+                href="https://photo.alexkutsan.me/ ">Photos</a> 
+            <a 
+                href="https://alexkutsan.github.io/search/ ">Search</a> 
+            </div>
+        </nav>
+    </header>
+    <article>
+    
+
+<section class="post">
+  <div class="post-header">
+    <div class="meta">
+      <div class="date">
+        <span class="day">20</span>
+        <span class="rest">Jan 24</span>
+      </div>
+    </div>
+
+    <div class="matter">
+      <h1 class="title">Blog Posts Functionality </h1>
+    </div>
+  </div>
+    
+  <article><p>I am using Zola as a static site generator with the Inky theme. It provides an easy way to create posts in Markdown, requiring minimal configuration. Despite its simplicity, it is feature-rich and has no JavaScript/npm dependencies.</p>
+<p>In this post, I am exploring various useful abilities of Markdown/HTML that can enhance blog posts.</p>
+<span id="continue-reading"></span><details>
+    <summary>For example, hiding part of the content in a collapsible block:</summary>
+    In the collapsed part, I can include extensive text without cluttering the page. This can be achieved using the following syntax:
+<pre data-lang="html" style="background-color:#2b303b;color:#c0c5ce;" class="language-html "><code class="language-html" data-lang="html"><span>&lt;</span><span style="color:#bf616a;">details</span><span>&gt;
+</span><span>    &lt;</span><span style="color:#bf616a;">summary</span><span>&gt;Summary of the content&lt;/</span><span style="color:#bf616a;">summary</span><span>&gt;
+</span><span>    Content itself
+</span><span>&lt;/</span><span style="color:#bf616a;">details</span><span>&gt;
+</span></code></pre>
+<p>Syntax highlighting also works within these blocks.</p>
+</details>
+<p>I can include Markdown-style images like <code>![Image](img.jpg)</code>:</p>
+<p><img src="https://alexkutsan.github.io/posts/posts-functionality/img.jpg" alt="Image" /></p>
+<p>Or link to an image/file like <code>[link to image](img.jpg)</code> : <a href="https://alexkutsan.github.io/posts/posts-functionality/img.jpg">link to image</a></p>
+<p>Additionally, I can use HTML tags for more control over the images:</p>
+<pre data-lang="html" style="background-color:#2b303b;color:#c0c5ce;" class="language-html "><code class="language-html" data-lang="html"><span>&lt;</span><span style="color:#bf616a;">img </span><span style="color:#d08770;">align</span><span>=&quot;</span><span style="color:#a3be8c;">right</span><span>&quot;  </span><span style="color:#d08770;">src</span><span>=&quot;</span><span style="color:#a3be8c;">img.jpg</span><span>&quot; </span><span style="color:#d08770;">width</span><span>=&quot;</span><span style="color:#a3be8c;">128</span><span>&quot;&gt; 
+</span></code></pre>
+<img align="right"  src="img.jpg" width="128"> 
+<p>Lists are easy to create:</p>
+<ul>
+<li>Point 1</li>
+<li>Point 2
+<ul>
+<li>Subpoint</li>
+<li>Subpoint 2</li>
+<li>Subpoint 3</li>
+</ul>
+</li>
+<li>Point 3
+<ul>
+<li>Subpoint 3</li>
+</ul>
+</li>
+</ul>
+<h2 id="headers-or-chapter-titles-markdown-style">Headers or Chapter Titles Markdown Style</h2>
+<p>One interesting feature is the ability to inject scripts and create small HTML/JS-based dynamic content:</p>
+<pre data-lang="html" style="background-color:#2b303b;color:#c0c5ce;" class="language-html "><code class="language-html" data-lang="html"><span>&lt;</span><span style="color:#bf616a;">script</span><span>&gt;
+</span><span>  </span><span style="color:#b48ead;">function </span><span style="color:#8fa1b3;">showAlert</span><span>() {
+</span><span>    </span><span style="color:#bf616a;">alert</span><span>(&#39;</span><span style="color:#a3be8c;">Hello, this is an alert!</span><span>&#39;);
+</span><span>  }
+</span><span>&lt;/</span><span style="color:#bf616a;">script</span><span>&gt;
+</span><span>&lt;</span><span style="color:#bf616a;">button </span><span style="color:#d08770;">onclick</span><span>=&quot;</span><span style="color:#bf616a;">showAlert</span><span>()&quot;&gt;Click me&lt;/</span><span style="color:#bf616a;">button</span><span>&gt;
+</span></code></pre>
+<script>
+  function showAlert() {
+    alert('Hello, this is an alert!');
+  }
+</script>
+<p><button onclick="showAlert()">Click me</button></p>
+</article>
+
+  
+    
+  
+  <ul class="tags">
+    
+      <li><a href='https://alexkutsan.github.io/tags/zola'>zola</a></li>
+    
+  </ul>
+  
+  
+    
+</section>
+</article>
+    <footer>
+        <div class="social">
+            <ul> 
+                 
+                <li>
+                    <a href="https://github.com/alexkutsan"
+                       title="Github" rel="me"><i data-feather="github"></i></a>
+                </li>
+                 
+                 
+                
+                
+                
+                <li>
+                    <a href="https://alexkutsan.github.io/atom.xml"
+                       title="Alexander Kutsan"><i data-feather="rss"></i></a>
+                </li>
+            </ul>
+        </div>
+        <p> © Alexander Kutsan 2024
+
+        
+        <br>Powered by <a target="_blank" href="https://getzola.org/">Zola</a>. Theme: <a target="_blank" href="https://github.com/jimmyff/zola-inky">Inky</a>.
+        </p>
+    </footer>
+    <script>
+        feather.replace();
+    </script> 
+    </body>
+</html>
