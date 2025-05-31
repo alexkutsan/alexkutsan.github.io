@@ -1,24 +1,20 @@
+# Base configuration
+base_url = "https://alexkutsan.github.io"
 title = "Alexander Kutsan"
 description = "Software engeneer"
-
-# The URL the site will be built for
-base_url = "https://alexkutsan.github.io"
-
-# Whether to automatically compile all Sass files in the sass directory
 compile_sass = true
 default_language = "en"
-#theme = "d3c3nt"
 theme = "zola-inky"
-
 output_dir = "public"
-
-# Whether to build a search index to be used later on by a JavaScript library
 build_search_index = true
-
 generate_feed = true
 feed_filename = "atom.xml"
 
-taxonomies = [{ name = "tags", lang = "en", rss = true }]
+# Taxonomies - must be defined at the top level
+taxonomies = [
+    {name = "tags", feed = true, lang = "en"},
+    {name = "tags", feed = true, lang = "ru"}
+]
 
 [markdown]
 highlight_code = true
@@ -28,15 +24,16 @@ paths = "on"
 taxonomies = "on"
 anchors = "on"
 
-[search]
-include_title = true
-include_description = true
-include_path = true
-include_content = true
-truncate_content_length = 100
+# Multilingual configuration
+[languages]
+
+[languages.en]
+
+[languages.ru]
+title = "Александр Куцан"
+description = "Программист"
 
 [extra]
-
 avatar = "/avatar.jpg"
 image_resizing_disabled = false
 image_format = "auto"
@@ -50,9 +47,18 @@ link_github_username = "alexkutsan"
 
 menu_links = [
     { url = "/", name = "About" },
-    { url = "/posts/", name = "Posts" },
+    { url = "/en/posts/", name = "Posts" },
     { url = "/tags/", name = "Tags" },
     { url = "https://photo.alexkutsan.me/", name = "Photos" },
     { url = "/search/", name = "Search" },
+]
+
+[languages.ru.extra]
+menu_links = [
+    { url = "/", name = "О блоге" },
+    { url = "/ru/posts/", name = "Записи" },
+    { url = "/tags/", name = "Теги" },
+    { url = "https://photo.alexkutsan.me/", name = "Фото" },
+    { url = "/ru/search/", name = "Поиск" },
 ]
 

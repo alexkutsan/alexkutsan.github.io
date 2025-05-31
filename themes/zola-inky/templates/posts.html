@@ -1,6 +1,15 @@
 {% extends "base.html" %} {% block content %}
 <h1 class="title">{{ section.title }}</h1>
 
+<!-- Language Switcher -->
+<div class="language-switcher" style="margin-bottom: 20px;">
+  {% if section.permalink is starting_with("/ru/") %}
+    <a href="/en/posts/">🇬🇧 English</a> | <span>🇷🇺 Русский</span>
+  {% else %}
+    <span>🇬🇧 English</span> | <a href="/ru/posts/">🇷🇺 Русский</a>
+  {% endif %}
+</div>
+
 <article>{{ section.content | safe }}</article>
 
 {% for year, posts in section.pages | group_by(attribute="year") %}

@@ -3,14 +3,18 @@
 {% block content %}
 
 <script type="text/javascript" src="{{ get_url(path='elasticlunr.min.js')|safe  }}"></script>
+{% if lang == "ru" %}
+<script type="text/javascript" src="{{ get_url(path='search_index.ru.js')|safe }}"></script>
+{% else %}
 <script type="text/javascript" src="{{ get_url(path='search_index.en.js')|safe }}"></script>
+{% endif %}
 <script type="text/javascript" src="{{ get_url(path='js/search.js')|safe }}"></script>
 
 <div class="search-container">
     <input id="search"
             autofocus="true"
            type="search"
-           placeholder="Search ↵">
+           placeholder="{% if lang == "ru" %}Поиск ↵{% else %}Search ↵{% endif %}">
     <div class="search-results">
         <div class="search-results__items"></div>
     </div>

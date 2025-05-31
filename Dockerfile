@@ -36,11 +36,21 @@ RUN apt-get update \
 # Copy built site from builder
 COPY --from=builder /site/public /site/public
 
+# Create a Caddyfile for redirects and static file serving
+RUN echo ':8080 {\n\
+    root * /site/public\n\
+    handle /posts* {\n\
+        redir /posts /en/posts 301\n\
+        redir /posts/* /en/posts/{path} 301\n\
+    }\n\
+    file_server\n\
+}' > /site/Caddyfile
+
 WORKDIR /site/public
 
 # Use a simple server (Python 3 is not installed by default, so use netcat for ultra-minimal, or you can swap to nginx/caddy if desired)
 # For real-world use, swap to nginx or Caddy for production.
-CMD ["caddy", "file-server", "--listen", ":8080"]
+CMD ["caddy", "run", "--config", "/site/Caddyfile", "--adapter", "caddyfile"]
 
 EXPOSE 8080
 
