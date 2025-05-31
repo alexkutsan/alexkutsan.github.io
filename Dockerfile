@@ -19,7 +19,7 @@ WORKDIR /site
 COPY . .
 
 # Build the site
-RUN zola build
+RUN zola build --base-url /
 
 # --- Final image ---
 FROM debian:bookworm-slim AS final

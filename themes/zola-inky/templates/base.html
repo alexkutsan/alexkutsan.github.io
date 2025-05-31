@@ -62,9 +62,8 @@
         <nav>
             <div class="links"> 
             {% for menu_link in config.extra.menu_links -%}
-                {% set link_url = menu_link.url | replace(from="$BASE_URL", to=config.base_url) -%} 
-                <a {% if current_url and current_url==link_url %}class="active"  {%  endif %}
-                href="{{ link_url | safe}} ">{{menu_link.name}}</a> 
+                <a {% if current_url and current_url==menu_link.url %}class="active"  {%  endif %}
+                href="{{ menu_link.url | safe }}">{{menu_link.name}}</a>
             {% endfor -%} 
             </div>
         </nav>

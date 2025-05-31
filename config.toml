@@ -49,10 +49,10 @@ keywords = "zola, theme, ink, hugo-ink"
 link_github_username = "alexkutsan"
 
 menu_links = [
-    { url = "$BASE_URL/", name = "About" },
-    { url = "$BASE_URL/posts/", name = "Posts" },
-    { url = "$BASE_URL/tags/", name = "Tags" },
+    { url = "/", name = "About" },
+    { url = "/posts/", name = "Posts" },
+    { url = "/tags/", name = "Tags" },
     { url = "https://photo.alexkutsan.me/", name = "Photos" },
-    { url = "$BASE_URL/search/", name = "Search" },
+    { url = "/search/", name = "Search" },
 ]
 
