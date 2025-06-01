@@ -1,66 +1,22 @@
 # Use a minimal Debian base image
 FROM debian:bookworm-slim AS builder
-
-# Install dependencies: curl for downloading Zola, and unzip
 RUN apt-get update \
     && apt-get install -y --no-install-recommends curl ca-certificates tar \
     && rm -rf /var/lib/apt/lists/*
 
-# Set Zola version
-ENV ZOLA_VERSION=0.18.0
-
-# Download and install Zola
+ENV ZOLA_VERSION=0.20.0
 RUN curl -L -o /tmp/zola.tar.gz "https://github.com/getzola/zola/releases/download/v${ZOLA_VERSION}/zola-v${ZOLA_VERSION}-x86_64-unknown-linux-gnu.tar.gz" \
     && tar -xzf /tmp/zola.tar.gz -C /tmp \
     && mv /tmp/zola /usr/local/bin/zola \
     && chmod +x /usr/local/bin/zola \
     && rm /tmp/zola.tar.gz
 
-# Copy the site source
 WORKDIR /site
 COPY . .
+RUN zola build --base-url / && ls -l /site && ls -l /site/public
 
-# Build the site
-RUN zola build --base-url /
 
-# --- Final image ---
-FROM debian:bookworm-slim AS final
-
-# Install a minimal HTTP server
-RUN apt-get update \
-    && apt-get install -y --no-install-recommends wget ca-certificates tar \
-    && wget -O /tmp/caddy.tar.gz 'https://github.com/caddyserver/caddy/releases/download/v2.8.4/caddy_2.8.4_linux_amd64.tar.gz' \
-    && tar -xzf /tmp/caddy.tar.gz -C /tmp \
-    && mv /tmp/caddy /usr/bin/caddy \
-    && chmod +x /usr/bin/caddy \
-    && rm -rf /tmp/caddy.tar.gz /tmp/LICENSE /tmp/README.md /var/lib/apt/lists/*
-
-# Copy built site from builder
-COPY --from=builder /site/public /site/public
-
-# Create a Caddyfile for redirects and static file serving
-RUN echo ':8080 {\n\
-    root * /site/public\n\
-    file_server\n\
-}' > /site/Caddyfile
-
-# RUN echo ':8080 {\n\
-#     root * /site/public\n\
-#     handle /posts* {\n\
-#         redir /posts /en/posts 301\n\
-#         redir /posts/* /en/posts/{path} 301\n\
-#     }\n\
-#     file_server\n\
-# }' > /site/Caddyfile
-
-WORKDIR /site/public
-
-# Use a simple server (Python 3 is not installed by default, so use netcat for ultra-minimal, or you can swap to nginx/caddy if desired)
-# For real-world use, swap to nginx or Caddy for production.
-CMD ["caddy", "run", "--config", "/site/Caddyfile", "--adapter", "caddyfile"]
-
+FROM caddy:2-alpine AS final
+COPY --from=builder /site/public /usr/share/caddy
 EXPOSE 8080
-
-# Healthcheck: ensure the server is serving content
-HEALTHCHECK --interval=30s --timeout=5s --start-period=10s --retries=3 \
-  CMD wget --spider -q http://localhost:8080 || exit 1
+CMD ["caddy", "file-server", "--root", "/usr/share/caddy", "--listen", ":8080"]

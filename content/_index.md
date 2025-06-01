@@ -1,6 +1,7 @@
 +++
-title = "Alexander Kutsan"
-template = "index.html"
+title = "About Me"
+template = "pages.html"
+paginate_by = 3
 +++
 
 Welcome to My Personal/Professional Blog

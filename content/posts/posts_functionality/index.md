@@ -4,6 +4,9 @@ description = "Exploire blog posting functionality"
 date = 2024-01-20
 colocated_path = "./"
 
+[extra]
+toc = true
+
 [taxonomies]
 tags = ["zola"]
 categories = ["Technical"] 

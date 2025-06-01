@@ -3,6 +3,10 @@ title = "Brutforce http on dvwa example"
 description = "Some fun with efectiveness of brutforsing http forms"
 date = 2024-01-20
 
+
+[extra]
+toc = true
+
 [taxonomies]
 tags = ["http", "async", "python", "appsec"]
 categories = ["Technical"] 
