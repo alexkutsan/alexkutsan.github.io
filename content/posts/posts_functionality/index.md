@@ -6,10 +6,11 @@ colocated_path = "./"
 
 [taxonomies]
 tags = ["zola"]
+categories = ["Technical"] 
 
 +++
 
-I am using Zola as a static site generator with the Inky theme. It provides an easy way to create posts in Markdown, requiring minimal configuration. Despite its simplicity, it is feature-rich and has no JavaScript/npm dependencies.
+I am using Zola as a static site generator with theme. It provides an easy way to create posts in Markdown, requiring minimal configuration. Despite its simplicity, it is feature-rich and has no JavaScript/npm dependencies.
 
 In this post, I am exploring various useful abilities of Markdown/HTML that can enhance blog posts.
 <!-- more -->

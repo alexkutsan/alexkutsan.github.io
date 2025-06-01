@@ -11,7 +11,9 @@ ENV ZOLA_VERSION=0.18.0
 
 # Download and install Zola
 RUN curl -L -o /tmp/zola.tar.gz "https://github.com/getzola/zola/releases/download/v${ZOLA_VERSION}/zola-v${ZOLA_VERSION}-x86_64-unknown-linux-gnu.tar.gz" \
-    && tar -xzf /tmp/zola.tar.gz -C /usr/local/bin \
+    && tar -xzf /tmp/zola.tar.gz -C /tmp \
+    && mv /tmp/zola /usr/local/bin/zola \
+    && chmod +x /usr/local/bin/zola \
     && rm /tmp/zola.tar.gz
 
 # Copy the site source
@@ -39,12 +41,17 @@ COPY --from=builder /site/public /site/public
 # Create a Caddyfile for redirects and static file serving
 RUN echo ':8080 {\n\
     root * /site/public\n\
-    handle /posts* {\n\
-        redir /posts /en/posts 301\n\
-        redir /posts/* /en/posts/{path} 301\n\
-    }\n\
     file_server\n\
 }' > /site/Caddyfile
+
+# RUN echo ':8080 {\n\
+#     root * /site/public\n\
+#     handle /posts* {\n\
+#         redir /posts /en/posts 301\n\
+#         redir /posts/* /en/posts/{path} 301\n\
+#     }\n\
+#     file_server\n\
+# }' > /site/Caddyfile
 
 WORKDIR /site/public
 

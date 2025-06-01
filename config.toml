@@ -1,64 +1,90 @@
-# Base configuration
 base_url = "https://alexkutsan.github.io"
-title = "Alexander Kutsan"
-description = "Software engeneer"
-compile_sass = true
-default_language = "en"
-theme = "zola-inky"
-output_dir = "public"
-build_search_index = true
-generate_feed = true
-feed_filename = "atom.xml"
 
-# Taxonomies - must be defined at the top level
+title = "Alexander Kutsan"
+description = "A simple of a programmer"
+
+default_language = "en"
+
+theme = "DeepThought"
+
+output_dir = "public"
+compile_sass = true
+minify_html = false
+ignored_content = []
+generate_feed = true
+feed_filename = "rss.xml"
+
+# The number of articles to include in the feed. All items are included if
+# this limit is not set (the default).
+# feed_limit = 20
+
+# When set to "true", files in the `static` directory are hard-linked. Useful for large
+# static files. Note that for this to work, both `static` and the
+# output directory need to be on the same filesystem. Note that the theme's `static`
+# files are always copied, regardless of this setting.
+hard_link_static = false
+build_search_index = true
+
 taxonomies = [
-    {name = "tags", feed = true, lang = "en"},
-    {name = "tags", feed = true, lang = "ru"}
+    { name = "categories", feed = true, paginate_by = 10 },
+    { name = "tags", feed = true, paginate_by = 10 },
 ]
+
+
 
 [markdown]
 highlight_code = true
+extra_syntaxes = []
+highlight_theme = "one-dark"
+render_emoji = true
+external_links_target_blank = true
+external_links_no_follow = true
+external_links_no_referrer = true
+smart_punctuation = false
+
 
 [slugify]
 paths = "on"
 taxonomies = "on"
 anchors = "on"
 
-# Multilingual configuration
-[languages]
-
-[languages.en]
-
-[languages.ru]
-title = "Александр Куцан"
-description = "Программист"
+[search]
+include_title = true
+include_description = true
+include_path = true
+include_content = true
 
 [extra]
-avatar = "/avatar.jpg"
-image_resizing_disabled = false
-image_format = "auto"
-image_quality = 80
-images_default_size = 512
-images_sizes = [64, 512, 1024, 2048]
+katex.enabled = true
+katex.auto_render = true
 
-keywords = "zola, theme, ink, hugo-ink"
+chart.enabled = true
+mermaid.enabled = true
+galleria.enabled = true
 
-link_github_username = "alexkutsan"
-
-menu_links = [
-    { url = "/", name = "About" },
-    { url = "/en/posts/", name = "Posts" },
-    { url = "/tags/", name = "Tags" },
-    { url = "https://photo.alexkutsan.me/", name = "Photos" },
-    { url = "/search/", name = "Search" },
+navbar_items = [
+    { code = "en", nav_items = [
+        { url = "/", name = "Home" },
+        { url = "/posts", name = "Posts" },
+        { url = "/tags", name = "Tags" },
+        { url = "/categories", name = "Categories" },
+    ] },
 ]
 
-[languages.ru.extra]
-menu_links = [
-    { url = "/", name = "О блоге" },
-    { url = "/ru/posts/", name = "Записи" },
-    { url = "/tags/", name = "Теги" },
-    { url = "https://photo.alexkutsan.me/", name = "Фото" },
-    { url = "/ru/search/", name = "Поиск" },
-]
+[extra.favicon]
+favicon_16x16 = "/icons/favicon-16x16.png"
+favicon_32x32 = "/icons/favicon-32x32.png"
+apple_touch_icon = "/icons/apple-touch-icon.png"
+safari_pinned_tab = "/icons/safari-pinned-tab.svg"
+webmanifest = "/icons/site.webmanifest"
+
+[extra.author]
+name = "Alexander Kutsan"
+avatar = "avatar.jpg"
+
+[extra.social]
+github = "alexkutsan"
+linkedin = "alexkutsan"
+email = "alexkutsan@gmail.com"
+
 

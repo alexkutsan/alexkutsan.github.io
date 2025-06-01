@@ -5,6 +5,7 @@ date = 2024-01-20
 
 [taxonomies]
 tags = ["http", "async", "python", "appsec"]
+categories = ["Technical"] 
 +++
 
 Generally, brute-forcing is not an effective method of penetration. However, in many cases, people do not really care about the strong protection of things they do not consider sensitive or important, such as WiFi passwords or router admin page credentials. Additionally, people often use simple passwords for frequently accessed accounts, such as mobile unlock passwords or notebook/PC user passwords.
