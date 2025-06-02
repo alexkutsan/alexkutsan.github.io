@@ -42,7 +42,7 @@ Context switching happens during I/O operations, sleeps, channels interactions, 
 
 Because of this, you can write your code as if it's single-threaded, which greatly reduces cognitive overhead. You can be confident your data won’t be modified mid-instruction by another fiber.
 
-If you do enable multithreading, things get complex fast. That said, recent improvements have introduced the concept of execution contexts, allowing you to spawn fibers within a shared thread context. I haven’t explored this deeply yet, but I’m very excited about it.
+If you do enable multithreading, things get complex fast. That said, recent improvements have introduced the concept of [execution contexts](https://crystal-lang.org/api/1.16.3/Fiber/ExecutionContext.html), allowing you to spawn fibers within a shared thread context. I haven’t explored this deeply yet, but I’m very excited about it.
 
 ## The Problem: Identifying Misbehaving Fibers
 
