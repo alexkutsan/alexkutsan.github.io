@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
+    <title>Alexander Kutsan - concurrency</title>
+    <subtitle>Software engineer, cybersecurity enthusiast</subtitle>
+    <link rel="self" type="application/atom+xml" href="https://alexkutsan.github.io/tags/concurrency/atom.xml"/>
+    <link rel="alternate" type="text/html" href="https://alexkutsan.github.io"/>
+    <generator uri="https://www.getzola.org/">Zola</generator>
+    <updated>2025-06-01T00:00:00+00:00</updated>
+    <id>https://alexkutsan.github.io/tags/concurrency/atom.xml</id>
+    <entry xml:lang="en">
+        <title>Crystal Lang Fibers Profiling</title>
+        <published>2025-06-01T00:00:00+00:00</published>
+        <updated>2025-06-01T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Unknown
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://alexkutsan.github.io/posts/crystal-lang-fibers-profiling/"/>
+        <id>https://alexkutsan.github.io/posts/crystal-lang-fibers-profiling/</id>
+        
+        <summary type="html">&lt;p&gt;Crystal&#x27;s fiber-based concurrency model enables elegant single-threaded development, but performance bottlenecks can be difficult to debug—especially when a misbehaving fiber monopolizes CPU time and freezes the entire application.&lt;&#x2F;p&gt;
+&lt;p&gt;Crystal’s runtime tracing can help identify which fibers consume the most resources. However, the traditional approach requires enabling tracing at startup, which is impractical for long-running services since it generates gigabytes of logs.&lt;&#x2F;p&gt;
+&lt;p&gt;Fortunately, Crystal’s monkey-patching capabilities allow us to dynamically enable scheduler tracing using Unix signals, offering a lightweight and practical way to diagnose fiber-related performance issues in production applications.&lt;&#x2F;p&gt;</summary>
+        
+    </entry>
+</feed>

@@ -1,0 +1,153 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script src="https://alexkutsan.github.io/js/theme.min.js" integrity="sha384-pb++s6uBRKaQv+iAXpgA/H3IlpLZdO14tTwuCI7uXmz4aaZdByoCcM+6BhynMq/1"></script>
+  <link rel="stylesheet" href="https://alexkutsan.github.io/abridge.css?h=17d1d14ae374495df55a" />
+  <meta charset="utf-8" />
+  <meta http-equiv="x-ua-compatible" content="ie=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="base" content="https://alexkutsan.github.io" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
+  <meta name="theme-color" content="#333333" />
+  <meta name="msapplication-TileColor" content="#333333" />
+  <link rel="mask-icon" href="https://alexkutsan.github.io/safari-pinned-tab.svg" color="#ff9900" />
+  <link rel="icon" type="image/svg+xml" href="https://alexkutsan.github.io/favicon.svg" />
+  <link rel="apple-touch-icon" sizes="180x180" href="https://alexkutsan.github.io/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="https://alexkutsan.github.io/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="https://alexkutsan.github.io/favicon-16x16.png" />
+  <link rel="alternate" type="application/atom+xml" title="Alexander Kutsan Atom Feed" href="https://alexkutsan.github.io/atom.xml" />
+  <meta name="robots" content="index, follow" />
+  <meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+  <meta name="bingbot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+  <title>Blog Posts Functionality | Alexander Kutsan</title>
+  <meta name="author" content="Alexandet Kutsan" />
+  <meta name="copyright" content="Alexander Kutsan" />
+  <meta name="description" content="Exploire blog posting functionality" />
+  <link rel="canonical" href="https://alexkutsan.github.io/posts/posts-functionality/" />
+  <meta name="keywords" content="Programm, security, appsec, crystal lang" />
+  <script defer src="https://alexkutsan.github.io/js/abridge_nopwa.min.js?h=da86cb0a199b3ccbdff1" integrity="sha384-vIpObQoso10COS540XqkYFIjE+P0OwczzYDnC2D28QZ8O6slixwCc+F1xxYZKvFr"></script>
+  <noscript><link rel="stylesheet" href="https://alexkutsan.github.io/nojs.css" /></noscript>
+</head>
+<body>
+  <header>
+    <nav>
+      <div><big><a href="/" title="Alexander Kutsan"><font color="#f90">A</font>lex <font color="#f90">K</font>utsan</a></big></div>
+      <div>
+
+        <div>
+          <ul><li><a class="s110" href="https://alexkutsan.github.io/posts/"> Posts </a></li><li><a class="s110" href="https://alexkutsan.github.io/categories/"> Categories </a></li><li><a class="s110" href="https://alexkutsan.github.io/tags/"> Tags </a></li><li><i type="reset" id="mode" class="js svgs adjust"></i></ul>
+        </div>
+
+        <div>
+          <div>
+            <form autocomplete=off class="js" name="goSearch" id="searchbox">
+              <div class="searchd">
+                <input id="searchinput" type="text" placeholder="Search" title="Search" />
+                <button type="submit" title="Search" class="svgs svgm search"></button>
+              </div>
+              <div class="results"><div id="suggestions"></div></div>
+            </form>
+          </div>
+        </div>
+
+      </div>
+    </nav>
+    <div class="desc">Software engineer, cybersecurity enthusiast</div>
+  </header>
+  <main>
+    <article>
+      <h1><a href="https://alexkutsan.github.io/posts/posts-functionality/">Blog Posts Functionality</a></h1>
+
+      <span class="s95"> Alexandet Kutsan <span class="rpad"></span> January 20, 2024 <span class="rpad"></span> [<a href="https://alexkutsan.github.io/categories/technical/">Technical</a>] #<a href="https://alexkutsan.github.io/tags/zola/">zola</a> </span>
+
+    
+
+
+<p>I am using Zola as a static site generator with theme. It provides an easy way to create posts in Markdown, requiring minimal configuration. Despite its simplicity, it is feature-rich and has no JavaScript/npm dependencies.</p>
+<p>In this post, I am exploring various useful abilities of Markdown/HTML that can enhance blog posts.</p>
+<span id="continue-reading"></span><details>
+    <summary>For example, hiding part of the content in a collapsible block:</summary>
+    In the collapsed part, I can include extensive text without cluttering the page. This can be achieved using the following syntax:
+<pre data-lang="html" class="language-html z-code"><code class="language-html" data-lang="html"><span class="z-text z-html z-basic"><span class="z-meta z-tag z-inline z-any z-html"><span class="z-punctuation z-definition z-tag z-begin z-html">&lt;</span><span class="z-entity z-name z-tag z-inline z-any z-html">details</span><span class="z-punctuation z-definition z-tag z-end z-html">&gt;</span></span>
+</span><span class="z-text z-html z-basic">    <span class="z-meta z-tag z-inline z-any z-html"><span class="z-punctuation z-definition z-tag z-begin z-html">&lt;</span><span class="z-entity z-name z-tag z-inline z-any z-html">summary</span><span class="z-punctuation z-definition z-tag z-end z-html">&gt;</span></span>Summary of the content<span class="z-meta z-tag z-inline z-any z-html"><span class="z-punctuation z-definition z-tag z-begin z-html">&lt;/</span><span class="z-entity z-name z-tag z-inline z-any z-html">summary</span><span class="z-punctuation z-definition z-tag z-end z-html">&gt;</span></span>
+</span><span class="z-text z-html z-basic">    Content itself
+</span><span class="z-text z-html z-basic"><span class="z-meta z-tag z-inline z-any z-html"><span class="z-punctuation z-definition z-tag z-begin z-html">&lt;/</span><span class="z-entity z-name z-tag z-inline z-any z-html">details</span><span class="z-punctuation z-definition z-tag z-end z-html">&gt;</span></span>
+</span></code></pre>
+<p>Syntax highlighting also works within these blocks.</p>
+</details>
+<p>I can include Markdown-style images like <code>![Image](img.jpg)</code>:</p>
+<p><img src="https://alexkutsan.github.io/posts/posts-functionality/img.jpg" alt="Image" /></p>
+<p>Or link to an image/file like <code>[link to image](img.jpg)</code> : <a href="https://alexkutsan.github.io/posts/posts-functionality/img.jpg">link to image</a></p>
+<p>Additionally, I can use HTML tags for more control over the images:</p>
+<pre data-lang="html" class="language-html z-code"><code class="language-html" data-lang="html"><span class="z-text z-html z-basic"><span class="z-meta z-tag z-inline z-any z-html"><span class="z-punctuation z-definition z-tag z-begin z-html">&lt;</span><span class="z-entity z-name z-tag z-inline z-any z-html">img</span> <span class="z-meta z-attribute-with-value z-html"><span class="z-entity z-other z-attribute-name z-html">align</span><span class="z-punctuation z-separator z-key-value z-html">=</span><span class="z-string z-quoted z-double z-html"><span class="z-punctuation z-definition z-string z-begin z-html">&quot;</span>right<span class="z-punctuation z-definition z-string z-end z-html">&quot;</span></span></span>  <span class="z-meta z-attribute-with-value z-html"><span class="z-entity z-other z-attribute-name z-html">src</span><span class="z-punctuation z-separator z-key-value z-html">=</span><span class="z-string z-quoted z-double z-html"><span class="z-punctuation z-definition z-string z-begin z-html">&quot;</span>img.jpg<span class="z-punctuation z-definition z-string z-end z-html">&quot;</span></span></span> <span class="z-meta z-attribute-with-value z-html"><span class="z-entity z-other z-attribute-name z-html">width</span><span class="z-punctuation z-separator z-key-value z-html">=</span><span class="z-string z-quoted z-double z-html"><span class="z-punctuation z-definition z-string z-begin z-html">&quot;</span>128<span class="z-punctuation z-definition z-string z-end z-html">&quot;</span></span></span><span class="z-punctuation z-definition z-tag z-end z-html">&gt;</span></span> 
+</span></code></pre>
+<img align="right"  src="img.jpg" width="128"> 
+<p>Lists are easy to create:</p>
+<ul>
+<li>Point 1</li>
+<li>Point 2
+<ul>
+<li>Subpoint</li>
+<li>Subpoint 2</li>
+<li>Subpoint 3</li>
+</ul>
+</li>
+<li>Point 3
+<ul>
+<li>Subpoint 3</li>
+</ul>
+</li>
+</ul>
+<h2 id="headers-or-chapter-titles-markdown-style">Headers or Chapter Titles Markdown Style</h2>
+<p>One interesting feature is the ability to inject scripts and create small HTML/JS-based dynamic content:</p>
+<pre data-lang="html" class="language-html z-code"><code class="language-html" data-lang="html"><span class="z-text z-html z-basic"><span class="z-meta z-tag z-script z-begin z-html"><span class="z-punctuation z-definition z-tag z-begin z-html">&lt;</span><span class="z-entity z-name z-tag z-script z-html">script</span></span><span class="z-meta z-tag z-script z-begin z-html"><span class="z-punctuation z-definition z-tag z-end z-html">&gt;</span></span>
+</span><span class="z-text z-html z-basic">  <span class="z-source z-js z-embedded z-html"><span class="z-source z-js"><span class="z-meta z-function z-js"></span><span class="z-meta z-function z-declaration z-js"><span class="z-storage z-type z-function z-js">function</span> <span class="z-entity z-name z-function z-js">showAlert</span><span class="z-punctuation z-section z-group z-begin z-js">(</span><span class="z-punctuation z-section z-group z-end z-js">)</span></span><span class="z-meta z-function z-js"> <span class="z-meta z-block z-js"><span class="z-punctuation z-section z-block z-begin z-js">{</span>
+</span></span></span></span></span><span class="z-text z-html z-basic"><span class="z-source z-js z-embedded z-html"><span class="z-source z-js"><span class="z-meta z-function z-js"><span class="z-meta z-block z-js">    <span class="z-meta z-function-call z-js"><span class="z-variable z-function z-js">alert</span><span class="z-meta z-group z-js"><span class="z-punctuation z-section z-group z-begin z-js">(</span><span class="z-meta z-string z-js"><span class="z-string z-quoted z-single z-js"><span class="z-punctuation z-definition z-string z-begin z-js">&#39;</span>Hello, this is an alert!<span class="z-punctuation z-definition z-string z-end z-js">&#39;</span></span></span><span class="z-punctuation z-section z-group z-end z-js">)</span></span></span><span class="z-punctuation z-terminator z-statement z-js">;</span>
+</span></span></span></span></span><span class="z-text z-html z-basic"><span class="z-source z-js z-embedded z-html"><span class="z-source z-js"><span class="z-meta z-function z-js"><span class="z-meta z-block z-js">  <span class="z-punctuation z-section z-block z-end z-js">}</span></span></span>
+</span></span></span><span class="z-text z-html z-basic"><span class="z-source z-js z-embedded z-html"><span class="z-source z-js"></span></span><span class="z-meta z-tag z-script z-end z-html"><span class="z-punctuation z-definition z-tag z-begin z-html">&lt;/</span><span class="z-entity z-name z-tag z-script z-html">script</span><span class="z-punctuation z-definition z-tag z-end z-html">&gt;</span></span>
+</span><span class="z-text z-html z-basic"><span class="z-meta z-tag z-inline z-form z-html"><span class="z-punctuation z-definition z-tag z-begin z-html">&lt;</span><span class="z-entity z-name z-tag z-inline z-form z-html">button</span> <span class="z-meta z-attribute-with-value z-event z-html"><span class="z-entity z-other z-attribute-name z-event z-html">onclick</span><span class="z-punctuation z-separator z-key-value z-html">=</span><span class="z-string z-quoted z-double"><span class="z-punctuation z-definition z-string z-begin z-html">&quot;</span></span><span class="z-meta z-attribute-with-value z-event z-html"><span class="z-source z-js"><span class="z-meta z-function-call z-js"><span class="z-variable z-function z-js">showAlert</span><span class="z-meta z-group z-js"><span class="z-punctuation z-section z-group z-begin z-js">(</span><span class="z-punctuation z-section z-group z-end z-js">)</span></span></span></span></span><span class="z-string z-quoted z-double"><span class="z-punctuation z-definition z-string z-end z-html">&quot;</span></span></span><span class="z-punctuation z-definition z-tag z-end z-html">&gt;</span></span>Click me<span class="z-meta z-tag z-inline z-form z-html"><span class="z-punctuation z-definition z-tag z-begin z-html">&lt;/</span><span class="z-entity z-name z-tag z-inline z-form z-html">button</span><span class="z-punctuation z-definition z-tag z-end z-html">&gt;</span></span>
+</span></code></pre>
+<script>
+  function showAlert() {
+    alert('Hello, this is an alert!');
+  }
+</script>
+<p><button onclick="showAlert()">Click me</button></p>
+
+      <nav>
+        <div>
+          <a href="https://alexkutsan.github.io/posts/dvwa-brutforce/">&#8249; Brutforce http on dvwa example</a>
+        </div>
+        <div>
+        </div>
+      </nav>
+    </article>
+
+    <div class="sblock">
+      <div class="blockdiv sticky">
+        <a class="b s150" href="#">Index</a>
+        <div>
+          <a href="#headers-or-chapter-titles-markdown-style">Headers or Chapter Titles Markdown Style</a>
+        </div>
+      </div>
+    </div>
+  </main>
+  <footer>
+    <hr />
+    <div class="c">
+      <nav class="tpad"><div><a type="application/atom+xml" href="https://alexkutsan.github.io/atom.xml" target="_blank" title="Alexander Kutsan Atom Feed"><i type="Button" class="svg rss" title="Alexander Kutsan Atom Feed"></i></a><a class="js m-protected" href="#YWxleGt1dHNhbkBnbWFpbC5jb20=" target="_blank" title="Mail"><i type="Button" class="svg mail" title="Mail"></i></a><a href="https://github.com/alexkutsan/" target="_blank" title="Github"><i type="Button" class="svg github" title="Github"></i></a><a href="https://t.me/alex_kutsan/" target="_blank" title="Telegram"><i type="Button" class="svg telegram" title="Telegram"></i></a></div></nav>
+      <nav class="vpad">
+        <a class="rpad s90" href="https://alexkutsan.github.io/"> Home </a>
+        <a class="rpad s90" href="https://alexkutsan.github.io/sitemap.xml" target="_blank"> Sitemap </a>
+      </nav>
+      <p class="s80"> &copy; <span id="year">2025</span> Alexander Kutsan</p>
+      <p class="s80">Powered by <a href="https://www.getzola.org/" target="_blank">Zola</a> & <a href="https://github.com/jieiku/abridge/" target="_blank">Abridge</a></p>
+    </div>
+  </footer>
+</body>
+</html>
