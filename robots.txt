@@ -1,0 +1,5 @@
+
+Sitemap: https://alexkutsan.github.io/sitemap.xml
+User-Agent: *
+Allow: /
+Host: https://alexkutsan.github.io
