@@ -225,7 +225,7 @@ signal-loop                          0.06      0.01%
 0x714a104509a0                       0.00      0.00%
 ```
 
-As expected, `Fiber_cpu_blocker2` takes most of the CPU time, while `Fiber_cpu_blocker1` takes twice as much.
+As expected, `Fiber_cpu_blocker2` takes most of the CPU time, while `Fiber_cpu_blocker1` takes half as much.
 The next one - `Fiber_IO` - takes a small amount of CPU time.
 Others - `Fiber_sleeper` and system fibers - take even less.
 
